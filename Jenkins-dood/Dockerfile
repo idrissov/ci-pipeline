@@ -1,3 +1,5 @@
+#create container for /var/jenkins_home
+#docker compose to run 2 containers
 FROM jenkins/jenkins:latest
 
 USER root
