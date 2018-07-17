@@ -64,7 +64,7 @@ pipeline {
             steps {
                 sh 'docker container ls'
                 sh 'docker inspect --format "{{title .ContainerConfig.Hostname}}" projet'
-                sh 'dockerhost=$(docker inspect --format "{{title .ContainerConfig.Hostname}}" projet) && curl http://$dockerhost:8082'
+                //sh 'dockerhost=$(docker inspect --format "{{title .ContainerConfig.Hostname}}" projet) && curl http://$dockerhost:8082'
 
 
             }
@@ -77,8 +77,11 @@ pipeline {
 
     }
     post {
-        always {
-            mail subject:'Jenkins test', to:'aggredi@gmail.com', from:'aggredi@mail.ru', body:'hi'
+        success {
+            mail subject:'Jenkins Build Success ' + currentBuild.displayName , to:'serik_idrissov@epam.com', from:'aggredi@mail.ru', body:currentBuild.absoluteUrl
+        }
+        failure {
+            mail subject:'Jenkins Build Success ' + currentBuild.displayName , to:'serik_idrissov@epam.com', from:'aggredi@mail.ru', body:currentBuild.absoluteUrl
         }
     }
 }
